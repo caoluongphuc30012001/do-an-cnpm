@@ -1,7 +1,7 @@
 import { Box, Typography, Stack} from '@mui/material'
 import Image from 'next/image'
-import MiLo from '../../assets/image/O-Long-xoai-kem-coffee.jpg'
 import homeStyles from '../../styles/Home.module.css'
+import Link from 'next/link'
 
 const Item = ({ item }) => {
   return (
@@ -17,7 +17,7 @@ const Item = ({ item }) => {
         m='15px 15px'
     >   
         <Box borderRadius='6px' grey className={homeStyles.wrapperImage}>
-            <Image class={homeStyles.imageProduct} alt='product' src={MiLo} style={{height: 50}} borderRadius='5px'/>
+            <Image class={homeStyles.imageProduct} alt='product' src={item.image} style={{height: 50}} borderRadius='5px'/>
         </Box>
         <Box
           p='30px 0'
@@ -25,7 +25,9 @@ const Item = ({ item }) => {
           <Typography pb='10px' textTransform='capitalize' fontWeight='600' fontSize='20px'>{item.name}</Typography>
           <Typography>{item.price}</Typography>
           <Box className={homeStyles.mainButton} m='20px 80px 0 80px' p='8px 15px' backgroundColor='#d3b673' borderRadius='6px' style={{cursor: 'pointer'}}>
+            <Link href='/order'>
                 <Typography className={homeStyles.textButton} textTransform='uppercase' color='#fff'>Đặt hàng</Typography>
+            </Link>
           </Box>
         </Box>
     </Stack>

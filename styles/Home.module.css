@@ -128,7 +128,11 @@
 .imageProduct:hover {
     transform: scale(1.05);
     cursor: pointer;
-    border-radius: 7px;
+    border-radius: 6px 6px 0 0 !important;
+}
+
+.homeButton:hover .imageProduct {
+    
 }
 
 .mainButton {
@@ -151,7 +155,7 @@
     background-color: #fff;
     box-sizing: border-box;
     border: 3px solid #d3b673;
-    color: #d3b673;
+    color: #d3b673 !important;
 }
 
 .mainButton:hover .textButton {

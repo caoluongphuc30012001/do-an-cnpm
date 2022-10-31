@@ -6,7 +6,7 @@ import homeStyles from '../../styles/Home.module.css'
 
 const Promotion = () => {
   return (
-    <Stack justifyContent='center' alignItems='center' width='100%'>
+    <Stack justifyContent='center' alignItems='center' width='100%' mb='100px'>
         <Stack justifyContent='center' alignItems='center'>
             <Typography p='10px' textTransform='capitalize' color='#d3b673' variant='h3' fontSize='25px' fontWeight={700}>Tin tức và Khuyến mãi</Typography>
             <Typography p='10px' textTransform='uppercase' letterSpacing={1.8} fontWeight='700' fontSize='36px' color='#00000'>Khám phá nhận ngay khuyến mãi</Typography>

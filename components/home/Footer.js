@@ -1,4 +1,4 @@
-import { Typography, Box, Stack, } from '@mui/material'
+import { Typography, Box, Stack } from '@mui/material'
 import Appstore from '../../assets/image/logo-appstore.svg'
 import Playstore from '../../assets/image/logo-playstore.svg'
 import Image from 'next/image'
@@ -10,6 +10,7 @@ const Footer = () => {
         className={homeStyles.homeFooter}
         position='relative'
         zIndex='2'
+        width='100vw'
     >   
         <Box
             position='absolute'
