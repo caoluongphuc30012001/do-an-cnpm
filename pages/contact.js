@@ -1,4 +1,4 @@
-import { Stack, Box, Typography, Button } from '@mui/material'
+import { Stack, Box, Typography } from '@mui/material'
 import contactStyles from '../styles/Contact.module.css'
 import qrImage from '../assets/image/QRCode.png'
 import Image from 'next/image'

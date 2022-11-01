@@ -80,6 +80,7 @@ const ListItem = ({ title, description }) => {
         justifyContent='center'
         alignItems='center'
         mt='60px'
+        id='home'
     >
         <Typography p='10px' textTransform='uppercase' color='#d3b673' variant='h3' fontSize='25px' fontWeight={700}>{title}</Typography>
         <Typography p='10px' textTransform='uppercase' letterSpacing={1.8} fontWeight='700' fontSize='36px' color='#00000'>{description}</Typography>

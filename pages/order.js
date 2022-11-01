@@ -5,16 +5,16 @@ import CartOrder from '../components/order/CartOrder'
 
 const order = () => {
   return (
-    <Stack backgroundColor='#fbfbfb' flexDirection='row' width='100vw'justifyContent='space-around'>
+    <Stack position='relative' backgroundColor='#fbfbfb' flexDirection='row' width='100vw'justifyContent='space-around'>
         <Box width='33.33%'>
           <CategoryOrder/>
         </Box>
         <Stack width='33.44%'>
-          <ListOrder title='Món nổi bật'/>
-          <ListOrder title='Trà Sữa'/>
-          <ListOrder title='Fresh Fruit Tea'/>
-          <ListOrder title='Macchiato Cream Cheese'/>
-          <ListOrder title='Sữa chua dẻo'/>
+          <ListOrder id='order1' title='Món nổi bật'/>
+          <ListOrder id='order2' title='Trà Sữa'/>
+          <ListOrder id='order3' title='Fresh Fruit Tea'/>
+          <ListOrder id='order4' title='Macchiato Cream Cheese'/>
+          <ListOrder id='order5' title='Sữa chua dẻo'/>
         </Stack>
         <Box width='33.33%'>
           <CartOrder/>

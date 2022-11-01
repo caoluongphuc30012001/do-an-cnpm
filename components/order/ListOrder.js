@@ -72,7 +72,7 @@ const fakeApi = [
     
 ]
 
-const ListOrder = ({ title }) => {
+const ListOrder = ({ title, id }) => {
   const [orderCategory, setOrderCategory] = useState(true)
   const element = useRef()
   const handleClick = () => {
@@ -84,6 +84,7 @@ const ListOrder = ({ title }) => {
         width='100%'
         justifyContent='center'
         mt='10px'
+        id={id}
     >      
         <Stack flexDirection='row' alignItems='center' justifyContent='space-between'>
             <Typography m='20px 0px' fontWeight={600} variant='h1' fontSize='16px'>{title}</Typography>

@@ -2,6 +2,7 @@ import Image from 'next/image'
 import { Box, Typography, Stack} from '@mui/material'
 import Mouse from '../../assets/image/ic_scoll.webp'
 import homeStyles from '../../styles/Home.module.css'
+import { Link }  from 'react-scroll'
 
 const Banner = () => {
   return (
@@ -25,7 +26,11 @@ const Banner = () => {
                 backgroundColor='rgba(0, 0, 0, 0.4)'
                 zIndex='-2'
             />
-            <Typography mt='350px' mb='30px' width='10%' p='8px 15px' border='2px solid #fff' backgroundColor='transparent' borderRadius='6px' letterSpacing={4} fontWeight={700} textAlign='center' className={homeStyles.homeButton} textTransform='uppercase' color='#fff'>Đặt hàng</Typography>
+            <Link to="home" spy={true} smooth={true}>
+              <Typography mt='350px' mb='30px' p='8px 15px' border='2px solid #fff' backgroundColor='transparent' borderRadius='6px' letterSpacing={4} fontWeight={700} textAlign='center' className={homeStyles.homeButton} textTransform='uppercase' color='#fff'>
+                Đặt hàng
+              </Typography>
+            </Link>
             <Box className={homeStyles.mouseMoveWrapper} mb='30px'>
                 <Image className={homeStyles.mouseMove} fontWeight={700} src={Mouse} alt='mouse'/>
             </Box>

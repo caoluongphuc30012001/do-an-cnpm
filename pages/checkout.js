@@ -1,4 +1,4 @@
-import { Stack, Box, Typography, Button } from '@mui/material'
+import { Stack, Box, Typography } from '@mui/material'
 import contactStyles from '../styles/Contact.module.css'
 import motor from '../assets/image/motor-scooter.png'
 import trash from '../assets/image/delete-dismiss-24-filled.png'
