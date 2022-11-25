@@ -1,17 +1,65 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Stack, Typography, Box } from "@mui/material";
 import homeStyles from "../../styles/Home.module.css";
-const CartOrder = ({ cart, setCart }) => {
+import axios from 'axios'
+import Router from "next/router";
+
+// var getCart = undefined
+
+const CartOrder = ({ setCart }) => {
+
+    const [listProduct, setListProduct] = useState()
+
     const handleDeleteAll = () => {
-        setCart([]);
-    };
+        setCart([])
+    }
+
+    const checkout = () => {
+        Router.push('/checkout')
+    }
+
+    const deleteItem = async (_id) => {
+        const userId = localStorage.getItem("_id");
+        axios
+            .delete(
+                'https://sleepy-scrubland-61892.herokuapp.com/cart/remove-from-cart', {
+                    userId: userId,
+                    productId: _id
+                }
+            )
+            .then((res) =>
+                console.log(
+                    "Delete Success",
+                    res.data,
+                    localStorage.getItem("_id"),
+                    _id
+                )
+            );
+    }
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const userId = localStorage.getItem('_id')
+
+            const res = await axios(
+                `https://sleepy-scrubland-61892.herokuapp.com/cart/get-all-cart?userId=${userId}`
+            );
+
+            if (res.data.data) {
+                setListProduct(res.data.data);
+            }
+        };
+        fetchData();
+    })
+
     return (
-        <>
+        <Box>
             <Stack
-                position="fixed"
+                position="relative"
+                overflowY= 'scroll'
                 width="300px"
                 top="0"
-                right="0"
+                right='0'
                 p="20px"
                 justifyContent="center"
                 backgroundColor="#fff"
@@ -35,13 +83,7 @@ const CartOrder = ({ cart, setCart }) => {
                     >
                         GIỎ HÀNG CỦA TÔI
                     </Typography>
-                    <Typography
-                        style={{ cursor: "pointer" }}
-                        onClick={handleDeleteAll}
-                        fontSize="11px"
-                        variant="h3"
-                        color="#282828"
-                    >
+                    <Typography style={{ cursor: 'pointer' }} onClick={handleDeleteAll} fontSize="11px" variant="h3" color="#282828">
                         Xóa tất cả
                     </Typography>
                 </Stack>
@@ -52,93 +94,114 @@ const CartOrder = ({ cart, setCart }) => {
                     alignItems="center"
                     borderBottom="1px solid #f1f1f1"
                 >
-                    {cart.length === 0 ? (
-                        <Typography
-                            width="100%"
-                            fontSize="14px"
-                            variant="h3"
-                            color="#282828"
-                        >
-                            Chưa có sản phẩm nào!
-                        </Typography>
-                    ) : (
-                        <Stack width="100%">
-                            {cart.map((item, index) => {
-                                return (
-                                    <Stack
-                                        pb="10px"
-                                        key={index}
-                                        borderBottom="1px solid #f1f1f1"
-                                    >
-                                        <Stack
-                                            p="6px"
-                                            flexDirection="row"
-                                            justifyContent="space-between"
-                                        >
-                                            <Typography
-                                                maxWidth="97px"
-                                                fontWeight="600"
-                                                mr="10px"
-                                                textTransform="capitalize"
-                                                variant="h3"
-                                                fontSize="14px"
-                                            >
-                                                {item.name}
-                                            </Typography>
-                                            <Typography fontWeight={600}>
-                                                x{item.quantity}
-                                            </Typography>
-                                            <Typography fontWeight={600}>
-                                                {item.totalPrice}đ
-                                            </Typography>
-                                        </Stack>
-                                        {item.typeTopping.length === 0 ? (
-                                            ""
-                                        ) : (
+                    {
+                        listProduct === undefined || listProduct.length === 0 ?
+                            <Typography
+                                width='100%'
+                                fontSize="14px"
+                                variant="h3"
+                                color="#282828"
+                            >
+                                
+                                Chưa có sản phẩm nào!
+                            </Typography>
+                            : 
+                            <Stack width='100%'>
+                                {
+                                    listProduct.map((item, index) => {
+                                        return (
                                             <Stack
-                                                ml="20px"
-                                                justifyContent="space-between"
+                                                pb="10px"
+                                                key={index}
+                                                borderBottom="1px solid #f1f1f1"
                                             >
-                                                {item.typeTopping.map(
-                                                    (item, index) => {
-                                                        return (
-                                                            <>
-                                                                <Stack
-                                                                    key={index}
-                                                                    flexDirection="row"
-                                                                    justifyContent="space-between"
-                                                                >
-                                                                    <Typography
-                                                                        p="2px"
-                                                                        fontSize="12px"
-                                                                        mr="10px"
-                                                                    >
-                                                                        {
-                                                                            item.name
+                                                <Stack
+                                                    p="6px"
+                                                    flexDirection="row"
+                                                    justifyContent="space-between"
+                                                    alignItems='center'
+                                                >
+                                                    <Typography
+                                                        fontWeight="600"
+                                                        maxWidth="120px"
+                                                        mr="10px"
+                                                        variant="h3"
+                                                        fontSize="14px"
+                                                    >
+                                                        {item.product.name} x{" "}
+                                                        {item.quantity}
+                                                    </Typography>
+
+                                                    <Stack flexDirection="row" justifyContent='center' alignItems='center'>
+                                                        <Typography
+                                                            fontWeight={600}
+                                                            mr="5px"
+                                                        >
+                                                            {item.product.price}
+                                                            đ
+                                                        </Typography>
+                                                        <Typography onClick={() => deleteItem(item.product._id)} p='10px' style={{cursor: 'pointer'}}>
+                                                            Xóa
+                                                        </Typography>
+                                                    </Stack>
+                                                </Stack>
+                                                {item.listTopping.length ===
+                                                0 ? (
+                                                    ""
+                                                ) : (
+                                                    <Stack
+                                                        ml="20px"
+                                                        justifyContent="space-between"
+                                                    >
+                                                        {item.listTopping.map(
+                                                            (value, index) => {
+                                                                return (
+                                                                    <Box
+                                                                        key={
+                                                                            index
                                                                         }
-                                                                    </Typography>
-                                                                    <Typography
-                                                                        p="2px"
-                                                                        fontSize="12px"
                                                                     >
-                                                                        +
-                                                                        {
-                                                                            item.price
-                                                                        }
-                                                                        đ
-                                                                    </Typography>
-                                                                </Stack>
-                                                            </>
-                                                        );
-                                                    }
+                                                                        <Stack
+                                                                            key={
+                                                                                index
+                                                                            }
+                                                                            flexDirection="row"
+                                                                            justifyContent="space-between"
+                                                                        >
+                                                                            <Typography
+                                                                                p="2px"
+                                                                                fontSize="12px"
+                                                                                mr="10px"
+                                                                            >
+                                                                                {
+                                                                                    value.name
+                                                                                }
+                                                                            </Typography>
+                                                                            <Typography
+                                                                                p="2px"
+                                                                                fontSize="12px"
+                                                                            >
+                                                                                +
+                                                                                {
+                                                                                    value.price
+                                                                                }
+
+                                                                                đ
+                                                                            </Typography>
+                                                                        </Stack>
+                                                                    </Box>
+                                                                );
+                                                            }
+                                                        )}
+                                                    </Stack>
                                                 )}
                                             </Stack>
-                                        )}
-                                    </Stack>
-                                );
-                            })}
-                        </Stack>
-                    )}
+                                        );
+                                    })
+                                }
+                            </Stack>
+                    }
+
                 </Stack>
                 <Box
                     className={homeStyles.mainButton}
@@ -152,12 +215,13 @@ const CartOrder = ({ cart, setCart }) => {
                         color="#fff"
                         textAlign="center"
                         fontSize="14px"
+                        onClick={checkout}
                     >
                         Thanh toán
                     </Typography>
                 </Box>
             </Stack>
-        </>
+        </Box>
     );
 };
 

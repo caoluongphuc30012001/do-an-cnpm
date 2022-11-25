@@ -8,7 +8,8 @@ const Category = ({ listNameCategory }) => {
         <>
             <Stack
                 position="fixed"
-                width="300px"
+                sx={{display: {lg: 'block', xs: 'none'}}}
+                minWidth="250px"
                 top="0"
                 left="0"
                 p="20px"
@@ -58,13 +59,6 @@ const Category = ({ listNameCategory }) => {
                                     color="#282828"
                                 >
                                     {item.name}
-                                </Typography>
-                                <Typography
-                                    fontSize="14px"
-                                    variant="h3"
-                                    color="#282828"
-                                >
-                                    0
                                 </Typography>
                             </Stack>
                         </Link>

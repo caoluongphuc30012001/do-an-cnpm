@@ -1,15 +1,20 @@
 import { Box, Typography, Stack } from "@mui/material";
 import Image from "next/image";
 import homeStyles from "../../styles/Home.module.css";
-import Popup from "./Popup";
-import { useState } from "react";
+import Popup from './Popup'
+import { useState } from 'react'
+import Router from "next/router";
 
 const ItemOrder = ({ item, listTopping, cart, setCart }) => {
     const [pop, setPop] = useState(false);
 
     const handleClick = () => {
+        const test = localStorage.getItem('_id');
+        if(test) setPop(true)
+        else Router.push('/login')
         setPop(true);
-    };
+    }
+
     return (
         <>
             <Stack
@@ -63,13 +68,13 @@ const ItemOrder = ({ item, listTopping, cart, setCart }) => {
                         backgroundColor="#d3b673"
                         borderRadius="6px"
                         style={{ cursor: "pointer" }}
+                        onClick={handleClick}
                     >
                         <Typography
                             className={homeStyles.textButton}
                             textTransform="uppercase"
                             color="#fff"
                             fontSize="13px"
-                            onClick={handleClick}
                         >
                             Đặt hàng
                         </Typography>
