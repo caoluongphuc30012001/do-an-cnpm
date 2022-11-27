@@ -4,6 +4,7 @@ import Image from "next/image";
 import homeStyles from "../../styles/Home.module.css";
 import Item from "./Item";
 import Homeline from "../../assets/image/home_line.webp";
+import LoaderWaiting from "../Loader";
 
 const ListItem = ({ title, description, dataProduct }) => {
     return (
@@ -43,22 +44,31 @@ const ListItem = ({ title, description, dataProduct }) => {
                 justifyContent="center"
                 m="30px 0"
             >
-                {dataProduct
-                    ? dataProduct
-                          .slice(0, 9)
-                          .map((item) => (
-                              <Item key={item._id} item={item} title="" />
-                          ))
-                    : ""}
-                <Box
-                    className={homeStyles.mainButton}
-                    mt="20px"
-                    p="10px 20px"
-                    backgroundColor="#d3b673"
-                    borderRadius="6px"
-                    style={{ cursor: "pointer" }}
-                >
-                    <Link href="/order">
+                {
+                    dataProduct
+                        ? dataProduct
+                            .slice(0, 9)
+                            .map((item) => (
+                                <Item key={item._id} item={item} title="" />
+                            ))
+                        :
+                        <Stack
+                            alignItems="center"
+                            justifyContent="center"
+                            width="100%"
+                        >
+                            <LoaderWaiting />
+                        </Stack>
+                }
+                <Link href="/order">
+                    <Box
+                        className={homeStyles.mainButton}
+                        mt="20px"
+                        p="10px 20px"
+                        backgroundColor="#d3b673"
+                        borderRadius="6px"
+                        style={{ cursor: "pointer" }}
+                    >
                         <Typography
                             className={homeStyles.textButton}
                             textTransform="uppercase"
@@ -66,8 +76,8 @@ const ListItem = ({ title, description, dataProduct }) => {
                         >
                             Xem tất cả
                         </Typography>
-                    </Link>
-                </Box>
+                    </Box>
+                </Link>
             </Stack>
         </Stack>
     );
